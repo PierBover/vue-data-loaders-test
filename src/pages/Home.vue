@@ -1,13 +1,17 @@
 <script lang="ts">
 import {wait} from '@/utils';
 import {defineBasicLoader} from 'unplugin-vue-router/data-loaders/basic';
+import { useUser } from '@/loaders/user';
+import Nav from '@/components/Nav.vue';
 
-export const usePosts = defineBasicLoader('posts', async (to, {signal}) => {
+const usePosts = defineBasicLoader('posts', async (to, {signal}) => {
 	const response = await fetch('https://jsonplaceholder.typicode.com/posts', {signal});
 	const json = await response.json();
 	await wait();
 	return json;
 });
+
+export {usePosts};
 </script>
 
 <script setup lang="ts">
@@ -15,6 +19,7 @@ const {data:posts} = usePosts();
 </script>
 
 <template>
+	<Nav></Nav>
 	<h1>Posts</h1>
 	<ul>
 		<li v-for="post in posts">

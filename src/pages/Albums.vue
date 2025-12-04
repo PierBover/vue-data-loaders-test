@@ -1,6 +1,7 @@
 <script lang="ts">
 import {wait} from '@/utils';
 import {defineBasicLoader} from 'unplugin-vue-router/data-loaders/basic';
+import Nav from '@/components/Nav.vue';
 
 export const useAlbums = defineBasicLoader('albums', async (to, {signal}) => {
 	const response = await fetch('https://jsonplaceholder.typicode.com/albums', {signal});
@@ -15,6 +16,7 @@ const {data:albums} = useAlbums();
 </script>
 
 <template>
+	<Nav></Nav>
 	<h1>Albums</h1>
 	<ul>
 		<li v-for="album in albums">
